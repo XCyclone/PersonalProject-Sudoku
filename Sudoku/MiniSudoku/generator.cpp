@@ -28,14 +28,14 @@ void Generator::change_to_num()							//根据模板和第一行生成数列转换为终局
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			if (model[i][j] == 'a') box[i][j] = temp[8];
-			else if (model[i][j] == 'b') box[i][j] = temp[1];
-			else if (model[i][j] == 'c') box[i][j] = temp[2];
-			else if (model[i][j] == 'd') box[i][j] = temp[3];
-			else if (model[i][j] == 'e') box[i][j] = temp[4];
-			else if (model[i][j] == 'f') box[i][j] = temp[5];
-			else if (model[i][j] == 'g') box[i][j] = temp[6];
-			else if (model[i][j] == 'h') box[i][j] = temp[7];
+			if (model[i][j] == 'a') box[i][j] = temp[4];
+			else if (model[i][j] == 'b') box[i][j] = temp[5];
+			else if (model[i][j] == 'c') box[i][j] = temp[3];
+			else if (model[i][j] == 'd') box[i][j] = temp[7];
+			else if (model[i][j] == 'e') box[i][j] = temp[8];
+			else if (model[i][j] == 'f') box[i][j] = temp[6];
+			else if (model[i][j] == 'g') box[i][j] = temp[1];
+			else if (model[i][j] == 'h') box[i][j] = temp[2];
 			else if (model[i][j] == 'i') box[i][j] = temp[0];
 		}
 	}
@@ -177,17 +177,37 @@ void Generator::output()									//输出终局文件
 	now++;
 	//fwrite(box, sizeof(box), 81, fp);
 	//fclose(fp);
+	char box_out[170] = { 0 };
+	int k = 0;
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++)
 		{
-			if (j == 8)	fprintf(fp, "%d", box[i][j]);
-			else fprintf(fp, "%d ", box[i][j]);
+			box_out[k++] = box[i][j] + '0';
+			if (j != 8)	box_out[k++] = ' ';
+			//fputc(box[i][j] + '0', fp);
+			//if (j != 8)	fputc(32, fp);
+			//if (j == 8)	fprintf(fp, "%d", box[i][j]);
+			//else fprintf(fp, "%d ", box[i][j]);
 			//File_G << box[i][j] << " ";
 		}
-		fprintf(fp, "\n");
+		box_out[k++] = '\n';
+		//fputc(10, fp);
+		//fprintf(fp, "\n");
 		//File_G << "\n";
 	}
-	if (this->now != this->num)	fprintf(fp, "\n");
+	//if (this->now != this->num)	
+	box_out[k++] = '\n';
+	box_out[k] = '\0';
+	//cout << "here" << endl;
+	//cout << now << endl;
+	//cout << num << endl;
+	//finish = clock();
+	//totaltime = (double)(finish - start) / 1000;
+	//cout << "time = " << totaltime << endl;
+	fwrite(box_out, 1, strlen(box_out), fp);
+
+	//if (this->now != this->num)	fputc(10, fp);
+		//fprintf(fp, "\n");
 	//File_G << "\n";
 	if (this->now == this->num) {
 		finish = clock();

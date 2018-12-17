@@ -24,12 +24,18 @@
     <ClCompile Include="solution.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="blank.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="generator.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="solution.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="blank.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

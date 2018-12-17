@@ -7,7 +7,7 @@
 Solution::Solution(const char* s)
 {
 	//cout << "SS" << endl;
-	fp_read = fopen(".\\input.txt", "r+");				//³õÊ¼»¯¶ÁÈëÎÄ¼þÂ·¾¶
+	fp_read = fopen(s, "r+");				//³õÊ¼»¯¶ÁÈëÎÄ¼þÂ·¾¶
 	fp_write = fopen(".\\sudoku.txt", "w+");			//³õÊ¼»¯Ð´ÈëÎÄ¼þÂ·¾¶
 	read_file();										//¶ÁÈ¡ÎÄ¼þ
 }
@@ -16,18 +16,23 @@ void Solution::read_file()								//¶ÁÈëÎÄ¼þ£¬½«ÎÄ¼þ´æÈëÊý×é
 {
 	while (!feof(fp_read))
 	{
+		char box_in[170] = { 0 };
+		int k = 0;
+		fread(box_in, 1, 163, fp_read);
 		for (int i = 0; i < 9; i++)
 		{
 			for (int j = 0; j < 9; j++)
 			{
-				box[i][j] = fgetc(fp_read) - '0';
-				fgetc(fp_read);
+				box[i][j] = box_in[k++] - '0';
+				k++;
+				//fgetc(fp_read);
 				//printf("%d ",box[i][j]);
 			}
 			//printf("\n");
 		}
+		//fread(box_in, 1, 1, fp_read);
 		//printf("\n");
-		fgetc(fp_read);
+		//fgetc(fp_read);
 		full();											//Ìî³ä¿Õ¸ñ
 	}
 	//cout << "all" << endl;
@@ -227,15 +232,28 @@ bool Solution::full_dfs(int row, int col)						//µÝ¹éÇó½âÊ£Óà¿Õ¸ñ£¨´ËÊ±Çó½â¿Õ¸ñ½
 
 void Solution::output()										//Êä³öµ½ÎÄ¼þ
 {
+	char box_out[170] = { 0 };
+	int k = 0;
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++)
 		{
-			if (j == 8)	fprintf(fp_write, "%d", box[i][j]);
-			else fprintf(fp_write, "%d ", box[i][j]);
+			box_out[k++] = box[i][j] + '0';
+			if (j != 8)	box_out[k++] = ' ';
+			//fputc(box[i][j] + '0', fp_write);
+			//if (j != 8)	fputc(32, fp_write);
+			//if (j == 8)	fprintf(fp_write, "%d", box[i][j]);
+			//else fprintf(fp_write, "%d ", box[i][j]);
 			//File_G << box[i][j] << " ";
 		}
-		fprintf(fp_write, "\n");
+		box_out[k++] = '\n';
+
+		//fputc(10, fp_write);
+		//fprintf(fp_write, "\n");
 		//File_G << "\n";
 	}
-	fprintf(fp_write, "\n");
+	box_out[k++] = '\n';
+	box_out[k] = '\0';
+	fwrite(box_out, 1, strlen(box_out), fp_write);
+	//fputc(10, fp_write);
+	//fprintf(fp_write, "\n");
 }
