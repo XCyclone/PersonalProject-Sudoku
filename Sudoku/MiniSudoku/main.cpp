@@ -17,14 +17,16 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[1], "-c") == 0)
 		{
 			int input;
-			if (sscanf_s(argv[2], "%d", &input)) {
-				new Generator(input);
+			if (sscanf_s(argv[2], "%d", &input) && input > 0 && input <=1000000) {
+					new Generator(input);
 			}
 			else
+			{
 				cout << "参数格式错误！请输入正确参数：" << endl;
 				cout << "--------------------------------------------------" << endl;
 				cout << "例如：Sudoku.exe -c 20" << endl;
 				exit(0);
+			}
 		}
 		//输入为“-s”时求解数独，获取数独文件地址
 		else if (strcmp(argv[1], "-s") == 0)
@@ -42,11 +44,11 @@ int main(int argc, char *argv[])
 			}
 			new Solution(input);
 		}
-		else if (strcmp(argv[1], "-b") == 0)
-		{
-			const char* input = argv[2];
-			new Blank(input);
-		}
+		//else if (strcmp(argv[1], "-b") == 0)		//挖空部分
+		//{
+		//	const char* input = argv[2];
+		//	new Blank(input);
+		//}
 		else
 		{
 			cout << "输入格式错误！请输入正确的参数：" << endl;

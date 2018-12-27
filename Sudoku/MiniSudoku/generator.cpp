@@ -1,23 +1,11 @@
 #include "generator.h"
 
-//int box[9][9] = { 0 };
-//int temp[9] = { 0 };
-//int mark[9] = { 0 };
-//char model[9][9] = {
-//		{ 'i','g','h','c','a','b','f','d','e' },{ 'c','a','b','f','d','e','i','g','h' },{ 'f','d','e','i','g','h','c','a','b' },{ 'g','h','i','a','b','c','d','e','f' },{ 'a','b','c','d','e','f','g','h','i' },{ 'd','e','f','g','h','i','a','b','c' },{ 'h','i','g','b','c','a','e','f','d' },
-//
-//	{ 'b','c','a','e','f','d','h','i','g' },{ 'e','f','d','h','i','g','b','c','a' }
-//};
-//
-//FILE *fp = NULL;
-//ofstream File_G(".\\sudoku.txt");
-
 Generator::Generator(int num)
 {
 	fp = fopen(".\\sudoku.txt", "w+");					//初始化写入文件路径
 	this->num = num;									//初始化生成终局个数
 	this->now = 0;										//初始化现有终局个数
-	this->start = clock();								//开始时间
+	//this->start = clock();								//开始时间
 	temp[0] = 4;										//根据学号（2+1）%9+1 = 4确定第一位
 	generate_first_line(1);								//递归生成第一行
 }
@@ -28,15 +16,15 @@ void Generator::change_to_num()							//根据模板和第一行生成数列转换为终局
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			if (model[i][j] == 'a') box[i][j] = temp[4];
-			else if (model[i][j] == 'b') box[i][j] = temp[5];
+			if (model[i][j] == 'i') box[i][j] = temp[0];
+			else if (model[i][j] == 'g') box[i][j] = temp[1];			
+			else if (model[i][j] == 'h') box[i][j] = temp[2];
 			else if (model[i][j] == 'c') box[i][j] = temp[3];
+			else if (model[i][j] == 'a') box[i][j] = temp[4];
+			else if (model[i][j] == 'b') box[i][j] = temp[5];
+			else if (model[i][j] == 'f') box[i][j] = temp[6];
 			else if (model[i][j] == 'd') box[i][j] = temp[7];
 			else if (model[i][j] == 'e') box[i][j] = temp[8];
-			else if (model[i][j] == 'f') box[i][j] = temp[6];
-			else if (model[i][j] == 'g') box[i][j] = temp[1];
-			else if (model[i][j] == 'h') box[i][j] = temp[2];
-			else if (model[i][j] == 'i') box[i][j] = temp[0];
 		}
 	}
 }
@@ -92,21 +80,13 @@ void Generator::wrap(int l)							//将9行(列)分为三组，分别为1、2、3,4、5、6,7、
 	if (l == 4)
 	{
 		if (now == num)	exit(0);
-		//if(now != num)
 		output();
-		//else return;
 		wrap_col(6, 7);
-		//if (now != num)
 		output();
-		//else return;
 		wrap_col(7, 8);
-		//if (now != num)
 		output();
-		//else return;
 		wrap_col(6, 8);
-		//if (now != num)
 		output();
-		//else return;
 		wrap_col(6, 7);
 		output();
 		wrap_col(7, 8);
@@ -119,19 +99,14 @@ void Generator::wrap(int l)							//将9行(列)分为三组，分别为1、2、3,4、5、6,7、
 		wrap(l + 1);
 		wrap_col(3, 4);
 		wrap(l + 1);
-		//wrap_col(3, 4);
 		wrap_col(4, 5);
 		wrap(l + 1);
-		//wrap_col(3, 5);
 		wrap_col(3, 5);
 		wrap(l + 1);
-		//wrap_col(4, 5);
 		wrap_col(3, 4);
 		wrap(l + 1);
-		//wrap_col(3, 4);
 		wrap_col(4, 5);
 		wrap(l + 1);
-		//wrap_col(3, 5);
 		wrap_col(3, 5);
 	}
 	if (l == 2)
@@ -139,13 +114,10 @@ void Generator::wrap(int l)							//将9行(列)分为三组，分别为1、2、3,4、5、6,7、
 		wrap(l + 1);
 		wrap_row(3, 4);
 		wrap(l + 1);
-		//	wrap_row(3,4);
 		wrap_row(4, 5);
 		wrap(l + 1);
-		//	wrap_row(3,5);
 		wrap_row(3, 5);
 		wrap(l + 1);
-		//	wrap_row(4,5);
 		wrap_row(3, 4);
 		wrap(l + 1);
 		wrap_row(4, 5);
@@ -157,13 +129,10 @@ void Generator::wrap(int l)							//将9行(列)分为三组，分别为1、2、3,4、5、6,7、
 		wrap(l + 1);
 		wrap_row(6, 7);
 		wrap(l + 1);
-		//	wrap_row(6,7);
 		wrap_row(7, 8);
 		wrap(l + 1);
-		//	wrap_row(6,8);
 		wrap_row(6, 8);
 		wrap(l + 1);
-		//	wrap_row(7,8);
 		wrap_row(6, 7);
 		wrap(l + 1);
 		wrap_row(7, 8);
@@ -175,8 +144,6 @@ void Generator::wrap(int l)							//将9行(列)分为三组，分别为1、2、3,4、5、6,7、
 void Generator::output()									//输出终局文件
 {
 	now++;
-	//fwrite(box, sizeof(box), 81, fp);
-	//fclose(fp);
 	char box_out[170] = { 0 };
 	int k = 0;
 	for (int i = 0; i < 9; i++) {
@@ -184,35 +151,17 @@ void Generator::output()									//输出终局文件
 		{
 			box_out[k++] = box[i][j] + '0';
 			if (j != 8)	box_out[k++] = ' ';
-			//fputc(box[i][j] + '0', fp);
-			//if (j != 8)	fputc(32, fp);
-			//if (j == 8)	fprintf(fp, "%d", box[i][j]);
-			//else fprintf(fp, "%d ", box[i][j]);
-			//File_G << box[i][j] << " ";
 		}
 		box_out[k++] = '\n';
-		//fputc(10, fp);
-		//fprintf(fp, "\n");
-		//File_G << "\n";
 	}
-	//if (this->now != this->num)	
-	box_out[k++] = '\n';
+	if (this->now != this->num)	box_out[k++] = '\n';
 	box_out[k] = '\0';
-	//cout << "here" << endl;
-	//cout << now << endl;
-	//cout << num << endl;
-	//finish = clock();
-	//totaltime = (double)(finish - start) / 1000;
-	//cout << "time = " << totaltime << endl;
 	fwrite(box_out, 1, strlen(box_out), fp);
 
-	//if (this->now != this->num)	fputc(10, fp);
-		//fprintf(fp, "\n");
-	//File_G << "\n";
-	if (this->now == this->num) {
-		finish = clock();
-		totaltime = (double)(finish - start) / 1000;
-		cout << "time = " << totaltime << endl;
+	if (this->now == this->num) {								//终止输出时间
+		//finish = clock();
+		//totaltime = (double)(finish - start) / 1000;
+		//cout << "time = " << totaltime << endl;
 		exit(0);
 	}
 

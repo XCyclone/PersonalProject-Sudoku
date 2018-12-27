@@ -19,7 +19,9 @@ private:
 	int sign[81][10];		//定义每个数独空位可填写的数组
 	int flag = 0;			//定义是否已经将所有有唯一解的位置填满
 	int flag2 = 0;			//定义是否已经将所有有唯一解的位置填满
-
+	clock_t start, finish;						//定义开始、结束时间
+	double totaltime;							//定义总生成时长
+	int numm = 0;
 public:
 	Solution(const char*);			//初始化
 	void read_file();				//读取文件

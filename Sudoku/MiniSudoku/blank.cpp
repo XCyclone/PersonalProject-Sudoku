@@ -7,9 +7,9 @@ Blank::Blank(const char *s)
 	read_file();
 }
 
-void Blank::block_much(int *a)
+void Blank::block_much(int *a)				//挖掉5~7个空格
 {
-	int n = rand() % 4 + 5;
+	int n = rand() % 3 + 5;
 	while (n--)
 	{
 		int m = rand() % 9;
@@ -19,7 +19,7 @@ void Blank::block_much(int *a)
 	}
 }
 
-void Blank::block_few(int *a)
+void Blank::block_few(int *a)				//挖掉2~4个空格
 {
 	int n = rand() % 3 + 2;
 	while (n--)
@@ -31,7 +31,7 @@ void Blank::block_few(int *a)
 	}
 }
 
-void Blank::read_file()
+void Blank::read_file()						//读文件
 {
 	while (!feof(fp_read))
 	{
@@ -44,23 +44,20 @@ void Blank::read_file()
 			{
 				box[i][j] = box_in[k++] - '0';
 				k++;
-				//fgetc(fp_read);
-				//printf("%d ",box[i][j]);
 			}
-			//printf("\n");
 		}
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
 			{
 				if ((i == 0 || i == 2) && (j == 0 || j == 2) || (i == 1 && j == 1))
-					block_much(&box[3 * i][3 * j]);
-				else	block_few(&box[3 * i][3 * j]);
+					block_few(&box[3 * i][3 * j]);
+				else	block_much(&box[3 * i][3 * j]);
 			}
 		output();
 	}
 }
 
-void Blank::output()
+void Blank::output()						//输出到文件
 {
 	char box_out[170] = { 0 };
 	int k = 0;
@@ -69,17 +66,8 @@ void Blank::output()
 		{
 			box_out[k++] = box[i][j] + '0';
 			if (j != 8)	box_out[k++] = ' ';
-			//fputc(box[i][j] + '0', fp_write);
-			//if (j != 8)	fputc(32, fp_write);
-			//if (j == 8)	fprintf(fp_write, "%d", box[i][j]);
-			//else fprintf(fp_write, "%d ", box[i][j]);
-			//File_G << box[i][j] << " ";
 		}
 		box_out[k++] = '\n';
-
-		//fputc(10, fp_write);
-		//fprintf(fp_write, "\n");
-		//File_G << "\n";
 	}
 	box_out[k++] = '\n';
 	box_out[k] = '\0';

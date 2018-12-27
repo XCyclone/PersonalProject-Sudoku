@@ -3,4 +3,12 @@
   main.cpp
   solution.cpp
   正在生成代码...
+  Microsoft (R) Incremental Linker Version 14.15.26729.0
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  "/OUT:C:\Users\yaoxx\Desktop\Sudoku\Debug\MiniSudoku.exe" /INCREMENTAL kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST "/MANIFESTUAC:level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK "/PDB:C:\Users\yaoxx\Desktop\Sudoku\Debug\MiniSudoku.pdb" /SUBSYSTEM:CONSOLE /OPT:NOREF /TLBID:1 /DYNAMICBASE /NXCOMPAT "/IMPLIB:C:\Users\yaoxx\Desktop\Sudoku\Debug\MiniSudoku.lib" /MACHINE:X86 /PROFILE Debug\blank.obj 
+  Debug\generator.obj 
+  Debug\main.obj 
+  Debug\solution.obj 
+LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/PROFILE”规范)
   MiniSudoku.vcxproj -> C:\Users\yaoxx\Desktop\Sudoku\Debug\MiniSudoku.exe
