@@ -1,0 +1,2 @@
+包含Generator、Solution、Blank三个类。
+Generator由于生成终局、Solution用于求解数独、Blank用于测试时挖空部分，项目中已将Blank部分进行注释。
